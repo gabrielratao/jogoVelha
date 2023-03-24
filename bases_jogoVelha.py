@@ -31,6 +31,43 @@ def abDiagonal(matriz):
 
 
 
+def diagPri(matriz):
+    tam = len(matriz)
+    linha = 0
+    coluna = 0
+    while linha < tam:
+        print(matriz[linha][coluna])
+        linha += 1
+        coluna += 1
+
+def diagSec(matriz):
+    tam = len(matriz)
+    linha = 0
+    coluna = 2
+    while linha < tam:
+        print(matriz[linha][coluna])
+        linha += 1
+        coluna -= 1
+    
+diagSec(matriz)   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

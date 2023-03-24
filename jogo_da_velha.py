@@ -22,6 +22,11 @@ def verifyPosition(linha, coluna, matriz, player):
         print(f'Jogador {player} repita sua jogada')
         return False
 
+def wichPlayer(cntPlays):
+    if cntPlays % 2 == 0:
+        return 2
+    else:
+        return 1
     
 def players(player):
     if player == 1:
@@ -70,9 +75,47 @@ def verColumn(matriz, player, coluna):
     else:
         return False
 
-#def verMainDiag(matriz, player, linha, coluna):
+def verMainDiag(matriz, player):
+    tam = len(matriz)
+    carac = players(player)
+    cntCarac = 0
+    linha = 0
+    coluna = 0
     
-#def verSecDiag(matriz, player, linha, coluna):
+    #percorrendo a diagonal principal
+    while linha < tam:
+        if matriz[linha][coluna] == carac:
+            cntCarac += 1
+            
+        linha += 1
+        coluna += 1
+        
+    if cntCarac == 3:
+        print(f'Jogador {player} ganhou')
+        return True
+    else:
+        return False
+    
+def verSecDiag(matriz, player):
+    tam = len(matriz)
+    carac = players(player)
+    cntCarac = 0
+    linha = 0
+    coluna = 2
+    
+    #percorrendo a diagonal principal
+    while linha < tam:
+        if matriz[linha][coluna] == carac:
+            cntCarac += 1
+            
+        linha += 1
+        coluna -= 1
+        
+    if cntCarac == 3:
+        print(f'Jogador {player} ganhou')
+        return True
+    else:
+        return False
 
 def verVelha(matriz):
     cntFreeSpace = 0
@@ -100,9 +143,15 @@ def verVictory(matriz, player, linha, coluna):
     
     elif verColumn(matriz, player, coluna):
         return True
-
-
-
+    
+    elif verMainDiag(matriz, player):
+        return True
+    
+    elif verSecDiag(matriz,player):
+        return True
+    
+    else:
+        return False
 
 
 
@@ -113,28 +162,31 @@ def game(matriz):
     print()
     showTab(matriz)
     print()
+    cntPlays = 1
     
     while True:
-        player = 1
-        while player <= 2:
-            print()
-            print(f'Jogador {player}')
-            linha = int(input('linha: '))
-            coluna = int(input('coluna: '))
+        
+        player = wichPlayer(cntPlays)
+        print()
+        print(f'Jogador {player}')
+        linha = int(input('linha: '))
+        coluna = int(input('coluna: '))
+        
+        #se a posição ainda nao foi selecionada, adciona a nova posição
+        #vai pro proximo jogador
+        if verifyPosition(linha, coluna, matriz, player):
             
-            #se a posição ainda nao foi selecionada, adciona a nova posição
-            #vai pro proximo jogador
-            if verifyPosition(linha, coluna, matriz, player):
-                
-                addPosition(linha, coluna, matriz, player)
-                showTab(matriz)
-                
-                verLine(matriz, player, linha)
-                verColumn(matriz, player, coluna)
-                verVelha(matriz)
-                
-                player += 1
-                
+            addPosition(linha, coluna, matriz, player)
+            showTab(matriz)
+            
+            #verificação de vitória
+            if verVictory(matriz, player, linha, coluna):
+                break
+            elif verVelha(matriz):
+                break
+            cntPlays += 1
+            
+             
             
           
 
