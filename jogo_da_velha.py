@@ -22,7 +22,7 @@ def verifyPosition(linha, coluna, matriz, player):
         print(f'Jogador {player} repita sua jogada')
         return False
 
-def wichPlayer(cntPlays):
+def whichPlayer(cntPlays):
     if cntPlays % 2 == 0:
         return 2
     else:
@@ -157,6 +157,20 @@ def verVictory(matriz, player, linha, coluna):
 
 
 def game(matriz):
+    print('-.-'*15)
+    print('INTRUÇÕES')
+    print()
+    print('Apenas utilizar números de 0 a 2')
+    print('As linhas e colunas da matriz são numeradas de 0 a 2')
+    print()
+    print('Ou seja, se você selecionar linha: 0  e coluna: 0 sua marcação será na primeira casa do tabuleiro')
+    print('Dessa forma:')
+    print('''
+          ['x', '-', '-']
+          ['-', '-', '-']
+          ['-', '-', '-']''')
+    print()
+    print('-.-'*15)
     print()
     print('-=-=-=-= INICIANDO O JOGO -=-=-=-=')
     print()
@@ -166,11 +180,19 @@ def game(matriz):
     
     while True:
         
-        player = wichPlayer(cntPlays)
+        player = whichPlayer(cntPlays)
         print()
         print(f'Jogador {player}')
+        
         linha = int(input('linha: '))
+        while linha > 2 or linha < 0:
+            print('Selecione apenas numeros de 0 e 2')
+            linha = int(input('linha: '))
+            
         coluna = int(input('coluna: '))
+        while coluna > 2 or coluna < 0:
+            print('Selecione apenas numeros de 0 e 2')
+            coluna = int(input('coluna: '))
         
         #se a posição ainda nao foi selecionada, adciona a nova posição
         #vai pro proximo jogador
